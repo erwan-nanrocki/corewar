@@ -1,0 +1,6 @@
+./objs/
+corewar asm
+*.swp
+*.o
+*.a
+*_DONE
