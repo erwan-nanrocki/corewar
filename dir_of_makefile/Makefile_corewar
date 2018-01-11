@@ -6,13 +6,13 @@
 #    By: enanrock <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/26 06:35:09 by enanrock          #+#    #+#              #
-#    Updated: 2017/11/26 06:44:19 by enanrock         ###   ########.fr        #
+#    Updated: 2018/01/11 16:08:48 by enanrock         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME  = corewar
 
-FILES = main
+FILES =
 
 LIBFT_DIR = ../libft/
 SRC_DIR   = ../srcs/$(NAME)/
@@ -26,7 +26,6 @@ HDR = $(addprefix $(HDR_DIR), $(addsuffix .h, $(NAME)))
 CC = gcc
 
 LIB_FLAGS = -L$(LIBFT_DIR) -lft
-#                                -framework OpenGL -framework AppKit
 
 CC_FLAGS =  -Wall -Wextra -Werror -I$(HDR_DIR) -I$(LIBFT_DIR)                  \
 			-g -fsanitize=address
@@ -60,7 +59,8 @@ clean:
 	@rm -fv $(OBJ) | column
 	@echo "\033[m""\c"
 
-fclean: clean
+fclean:
+	@make clean
 	@make $@ -C $(LIBFT_DIR)
 	@echo "\033[0;31m""\c"
 	@rm -fv ../$(NAME)
