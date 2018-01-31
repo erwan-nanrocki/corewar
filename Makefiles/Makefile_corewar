@@ -6,28 +6,26 @@
 #    By: enanrock <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/26 06:35:09 by enanrock          #+#    #+#              #
-#    Updated: 2018/01/11 16:08:48 by enanrock         ###   ########.fr        #
+#    Updated: 2018/01/31 17:03:04 by enanrock         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME  = corewar
+NAME      := corewar
 
-FILES =
+FILES     := main
 
-LIBFT_DIR = ../libft/
-SRC_DIR   = ../srcs/$(NAME)/
-OBJ_DIR   = ../objs/
-HDR_DIR   = ../includes/
+LIBFT_DIR := ../libft/
+SRC_DIR   := ../sources/$(NAME)/
+OBJ_DIR   := ../objects/$(NAME)/
+HDR_DIR   := ../includes/$(NAME)/
+DEP_DIR   := ../Makefiles/
 
-OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
-SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
-HDR = $(addprefix $(HDR_DIR), $(addsuffix .h, $(NAME)))
-
-CC = gcc
+OBJ       := $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
+DEP       := $(addprefix $(DEP_DIR), $(addsuffix .d, $(FILES)))
 
 LIB_FLAGS = -L$(LIBFT_DIR) -lft
 
-CC_FLAGS =  -Wall -Wextra -Werror -I$(HDR_DIR) -I$(LIBFT_DIR)                  \
+GCC_FLAGS =  -Wall -Wextra -Werror -I$(HDR_DIR) -I$(LIBFT_DIR)                 \
 			-g -fsanitize=address
 
 .PHONY : all leaks clean fclean re
@@ -40,32 +38,42 @@ leaks:
 $(LIBFT_DIR)libft.a:
 	@make libft.a -C $(LIBFT_DIR)
 
-../$(NAME): $(LIBFT_DIR)libft.a $(OBJ) $(HDR)
-	@$(CC) $(CC_FLAGS) $(LIB_FLAGS) $^ -o $@
+../$(NAME): $(LIBFT_DIR)libft.a $(OBJ)
+	@gcc $(GCC_FLAGS) $(LIB_FLAGS) $^ -o $@
 	@echo "\033[0;32m""created   : $@""\033[m"
-	@echo "\033[1;36m""flags i use are ""\033[0;36m""$(CC_FLAGS)""\033[m"
+	@echo "\033[1;36m""flags i use are ""\033[0;36m""$(GCC_FLAGS)""\033[m"
 	@echo "\033[1;36m""and ""\033[0;36m""$(LIB_FLAGS)""\033[1;36m"" too, ""\c"
 	@echo "but only when i link $@""\033[m"
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HDR)
+$(OBJ_DIR)%.o: $(DEP_DIR)%.d
+	@make $@ -f $<
+
+$(DEP_DIR)%.d: $(SRC_DIR)%.c
+	@mkdir -p $(DEP_DIR) 2> /tmp/a.del
 	@mkdir -p $(OBJ_DIR) 2> /tmp/a.del
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@echo "\033[0;33m""created   : $@""\033[m"
+	@echo "$(OBJ_DIR)\c"                                                   >  $@
+	@gcc $(GCC_FLAGS) -MM $<                                               >> $@
+	@echo "	@gcc $(GCC_FLAGS) -c $< -o $(@:$(DEP_DIR)%d=$(OBJ_DIR)%o)"     >> $@
+	@echo "	@echo \"\c"                                                    >> $@
+	@echo "\\\033[0;33m\"\"created   : $(@:$(DEP_DIR)%d=$(OBJ_DIR)%o)\"\c" >> $@
+	@echo "\"\\\033[m\""                                                   >> $@
+	@echo "\033[1;33m""created   : $@""\033[m"
 
 clean:
 	@echo "\033[0;31m""deleted all these files :""\033[m"
 	@make $@ -C $(LIBFT_DIR)
 	@echo "\033[1;31m""\c"
 	@rm -fv $(OBJ) | column
+	@rm -dv $(OBJ_DIR) | column
 	@echo "\033[m""\c"
 
 fclean:
-	@make clean
+	@make clean -f Makefile_corewar -C .
 	@make $@ -C $(LIBFT_DIR)
 	@echo "\033[0;31m""\c"
 	@rm -fv ../$(NAME)
 	@echo "\033[m""\c"
 
 re:
-	@make fclean
-	@make all
+	@make fclean -f Makefile_corewar -C .
+	@make all -f Makefile_corewar -C .

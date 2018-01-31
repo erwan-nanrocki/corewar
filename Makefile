@@ -6,43 +6,42 @@
 #    By: enanrock <marvin42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/02 11:41:31 by enanrock          #+#    #+#              #
-#    Updated: 2018/01/11 15:59:41 by enanrock         ###   ########.fr        #
+#    Updated: 2018/01/31 16:30:52 by enanrock         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME     = corewar
-NAME_001 = $(NAME)
-NAME_002 = asm
-NAME_ALL = $(NAME_001) $(NAME_002)
+NAME      := corewar
+NAME_001  := $(NAME)
+NAME_002  := asm
+NAME_ALL  := $(NAME_001)
 
-LIBFT_DIR = ./libft/
-SRC_DIR   = ./srcs/
-OBJ_DIR   = ./objs/
-HDR_DIR   = ./includes/
+LIBFT_DIR := ./libft/
+SRC_DIR   := ./sources/
+OBJ_DIR   := ./objects/
+HDR_DIR   := ./includes/
 
-LIB = $(addsuffix Makefile, $(LIBFT_DIR))
+LIB       := $(addsuffix Makefile, $(LIBFT_DIR))
 
-.PHONY: all leaks clean fclean re norme victory where_is_malloc tuto           \
-		tuto_corewar
+.PHONY: all leaks clean fclean re norme where_is_malloc tuto tuto_corewar
 
 all: $(LIB) author .gitignore .gitmodules
-#	@make $@ -C dir_of_makefile -f Makefile_$(NAME_001)
-#	@make $@ -C dir_of_makefile -f Makefile_$(NAME_002)
+	@make $@ -C Makefiles -f Makefile_$(NAME_001)
+#	@make $@ -C Makefiles -f Makefile_$(NAME_002)
 
 $(NAME_001): $(LIB)
-#	@make $(addprefix ../, $@) -C dir_of_makefile -f Makefile_$@
+	@make ../$@ -C Makefiles -f Makefile_$(NANE_001)
 
 $(NAME_002): $(LIB)
-#	@make $(addprefix ../, $@) -C dir_of_makefile -f Makefile_$@
+	@make ../$@ -C Makefiles -f Makefile_$(NANE_001)
 
 leaks:
 	clear
-	@make $@ -C dir_of_makefile -f Makefile_$(NAME_001)
-	@make $@ -C dir_of_makefile -f Makefile_$(NAME_002)
+	@make $@ -C Makefiles -f Makefile_$(NAME_001)
+#	@make $@ -C Makefiles -f Makefile_$(NAME_002)
 
 clean: $(LIB)
-#	@make $@ -C dir_of_makefile -f Makefile_$(NAME_001)
-#	@make $@ -C dir_of_makefile -f Makefile_$(NAME_002)
+	@make $@ -C Makefiles -f Makefile_$(NAME_001)
+#	@make $@ -C Makefiles -f Makefile_$(NAME_002)
 ifneq ("$(OBJ_DIR)", "./")
 	@echo "\033[1;31m""\c"
 	@rm -fdv $(OBJ_DIR)
@@ -50,8 +49,8 @@ ifneq ("$(OBJ_DIR)", "./")
 endif
 
 fclean: $(LIB)
-#	@make $@ -C dir_of_makefile -f Makefile_$(NAME_001)
-#	@make $@ -C dir_of_makefile -f Makefile_$(NAME_002)
+	@make $@ -C Makefiles -f Makefile_$(NAME_001)
+#	@make $@ -C Makefiles -f Makefile_$(NAME_002)
 ifneq ("$(OBJ_DIR)", "./")
 	@echo "\033[1;31m""\c"
 	@rm -fdv $(OBJ_DIR)
@@ -114,43 +113,6 @@ norme: $(LIB)
 		| sed ''s/Warning/`echo "\033[0;33mWarning"`/g'' \
 		| sed ''s/Norme/`echo "\033[1;34mNorme"`/g''
 	@echo "\033[m""\c"
-
-victory:
-	@echo "\r  ( '_' )           < .                                    \c"
-	@sleep 1
-	@echo "\r  ( -_- )           < ..                                   \c"
-	@sleep 0.2
-	@echo "\r  ( '_' )           < ...                                  \c"
-	@sleep 1.5
-	@echo "\r  ( ^_^ )           < cool, you did it !                   \c"
-	@sleep 3
-	@echo "\r  /)^3^(\           < So Awesome !                         \c"
-	@sleep 3
-	@num=1;\
-		while [[ $$num -le 50 ]];do\
-		echo "\r ʕ•̫͡•ʕ*̫͡*ʕ•͓͡•ʔʕ•̫͡•ʔ*̫͡*ʔ  < The local crowd into a frenzy        \c";\
-		sleep 0.1;\
-		echo "\r  ʕ•̫͡•ʕ*̫͡*ʕ•͓͡•ʔʕ•̫͡•ʔ*̫͡*ʔ < The local crowd into a frenzy        \c";\
-		sleep 0.1;\
-		((num = num + 1));\
-		done
-	@echo "\r ᕦ(ˇò_ó)ᕤ           < You're the best !                    \c"
-	@sleep 3
-	@num=1;\
-		while [[ $$num -le 20 ]];do\
-		echo "\r | ( ^.^ ) |        < Dance                                \c";\
-		sleep 0.1;\
-		echo "\r  /(  ^.^)  /       <        to                            \c";\
-		sleep 0.1;\
-		echo "\r | ( ^.^ ) |        <           death                      \c";\
-		sleep 0.1;\
-		echo "\r\  (^.^  )\         <                 !                    \c";\
-		sleep 0.1;\
-		((num = num + 1));\
-		done
-	@echo "\r \ (O.O  )\         < oops...                              \c"
-	@sleep 1.5
-	@echo "\r  ( ╥﹏╥ )          < Time to work now...                  \c"
 
 tuto:
 	@echo "do make tuto_corewar"
