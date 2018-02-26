@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2017/11/26 06:17:48 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/02/13 17:01:39 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 /*
 ** Toutes les tailles sont en octets.
 ** On part du principe qu'un int fait 32 bits. Est-ce vrai chez vous ?
+** UINT_MAX_32 = 2^32 - 1 = 4,294,967,295 = ff ff ff ff
 */
 
 # define IND_SIZE				2

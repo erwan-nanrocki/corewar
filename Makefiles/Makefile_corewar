@@ -6,36 +6,39 @@
 #    By: enanrock <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/26 06:35:09 by enanrock          #+#    #+#              #
-#    Updated: 2018/01/31 17:03:04 by enanrock         ###   ########.fr        #
+#    Updated: 2018/02/26 18:47:35 by enanrock         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME      := corewar
+NAME        := corewar
 
-FILES     := main
+FILES       := main help_corewar set_options set_champ set_process             \
+               open_files_and_complete_memory_space convert_pc_to_uint
+LIBFT_FILES := ft_putstr ft_bzero ft_lstdel ft_simple_del
+LIBFT_SRC   := $(addprefix $(LIBFT_DIR), $(addsuffix .c, $(LIBFT_FILES)))
 
-LIBFT_DIR := ../libft/
-SRC_DIR   := ../sources/$(NAME)/
-OBJ_DIR   := ../objects/$(NAME)/
-HDR_DIR   := ../includes/$(NAME)/
-DEP_DIR   := ../Makefiles/
+LIBFT_DIR   := ../libft/
+SRC_DIR     := ../sources/
+OBJ_DIR     := ../objects/
+HDR_DIR     := ../includes/
+DEP_DIR     := ../Makefiles/
 
-OBJ       := $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
-DEP       := $(addprefix $(DEP_DIR), $(addsuffix .d, $(FILES)))
+OBJ         := $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
+DEP         := $(addprefix $(DEP_DIR), $(addsuffix .d, $(FILES)))
 
-LIB_FLAGS = -L$(LIBFT_DIR) -lft
+LIB_FLAGS   := -L$(LIBFT_DIR) -lft
 
-GCC_FLAGS =  -Wall -Wextra -Werror -I$(HDR_DIR) -I$(LIBFT_DIR)                 \
-			-g -fsanitize=address
+GCC_FLAGS   := -Wall -Wextra -Werror -I$(HDR_DIR) -I$(LIBFT_DIR)               \
+               -g -fsanitize=address
 
-.PHONY : all leaks clean fclean re
+.PHONY : all leaks clean fclean re $(LIBFT_SRC)
 
 all: ../$(NAME)
 
 leaks:
 	leaks $(NAME)
 
-$(LIBFT_DIR)libft.a:
+$(LIBFT_DIR)libft.a: $(LIBFT_SRC)
 	@make libft.a -C $(LIBFT_DIR)
 
 ../$(NAME): $(LIBFT_DIR)libft.a $(OBJ)
