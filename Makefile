@@ -6,7 +6,7 @@
 #    By: enanrock <marvin42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/02 11:41:31 by enanrock          #+#    #+#              #
-#    Updated: 2018/02/26 17:01:40 by enanrock         ###   ########.fr        #
+#    Updated: 2018/03/03 23:10:36 by enanrock         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,10 +29,10 @@ all: $(LIB) author .gitignore .gitmodules
 #	@make $@ -C Makefiles -f Makefile_$(NAME_002)
 
 $(NAME_001): $(LIB)
-	@make ../$@ -C Makefiles -f Makefile_$(NANE_001)
+	@make ../$@ -C Makefiles -f Makefile_$(NAME_001)
 
 $(NAME_002): $(LIB)
-	@make ../$@ -C Makefiles -f Makefile_$(NANE_001)
+	@make ../$@ -C Makefiles -f Makefile_$(NAME_001)
 
 clean: $(LIB)
 	@make $@ -C Makefiles -f Makefile_$(NAME_001)
