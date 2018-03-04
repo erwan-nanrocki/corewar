@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/24 14:23:17 by enanrock          #+#    #+#             */
-/*   Updated: 2018/02/24 14:35:47 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/03/03 23:25:06 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@
 # include "mem.h"
 # include "open_files_and_complete_memory_space.h"
 
-void	open_files_and_complete_memory_space(t_mem *mem);
+int		open_files_and_complete_memory_space(t_mem *mem);
 
 #endif

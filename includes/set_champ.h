@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 07:37:45 by enanrock          #+#    #+#             */
-/*   Updated: 2018/02/16 07:44:27 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/03/03 23:54:03 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include "mem.h"
 
-void	set_champ(char *file, t_mem *mem);
+int		set_champ(char *file, t_mem *mem);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 17:27:46 by enanrock          #+#    #+#             */
-/*   Updated: 2018/02/26 17:44:00 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/03/03 23:26:56 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define DUMP_MULTI  2
 
 # define ERROR      -1
+# define SUCCESS     0
 
 # define BUF_SIZE   (CHAMP_MAX_SIZE + 4 + PROG_NAME_LENGTH + COMMENT_LENGTH+ 4)
 

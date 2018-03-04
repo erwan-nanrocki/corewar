@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 06:11:39 by enanrock          #+#    #+#             */
-/*   Updated: 2018/02/16 08:41:16 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/03/04 00:46:55 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,31 +31,38 @@ static void		a_to_hex(char *str, unsigned char new_id[REG_SIZE])
 	}
 }
 
-void			set_options(char **argv, int *i, t_mem *mem)
+static int		ft_putstr_error(char *str)
 {
-	int		should_i_increment_this_int;
+	ft_putstr_fd("\033[31m""ERROR""\033[m"" : the option \"", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("\" doesn't not exit\n", 2);
+	return (ERROR);
+}
 
-	should_i_increment_this_int = NOPE;
+int				set_options(char **argv, int *i, t_mem *mem)
+{
 	if ((ft_strequ(argv[*i], "--aff") == TRUE) ||
-			((argv[*i][1] != '-') && (ft_strchr(argv[*i], 'a') != NULL)))
+			(ft_strequ(argv[*i], "-a") == TRUE))
 		mem->option_aff = TRUE;
-	if ((ft_strequ(argv[*i], "--multi_dump") == TRUE) ||
-			(ft_strequ(argv[*i], "--dump") == TRUE) ||
-			((argv[*i][1] != '-') && (ft_strchr(argv[*i], 'm') != NULL)) ||
-			((argv[*i][1] != '-') && (ft_strchr(argv[*i], 'd') != NULL)))
+	else if ((ft_strequ(argv[*i], "--dump") == TRUE) ||
+			(ft_strequ(argv[*i], "-d") == TRUE))
 	{
 		mem->option_dump = DUMP_SIMPLE;
-		if (ft_strchr(argv[*i], 'm') != NULL)
-			mem->option_dump = DUMP_MULTI;
-		mem->value_dump = ft_atoui(argv[*i + 1]);
-		should_i_increment_this_int = YES;
+		mem->value_dump = ft_atoui(argv[++(*i)]);
 	}
-	if ((ft_strequ(argv[*i], "--number") == TRUE) ||
-			((argv[*i][1] != '-') && (ft_strchr(argv[*i], 'n') != NULL)))
+	else if ((ft_strequ(argv[*i], "--multi_dump") == TRUE) ||
+			(ft_strequ(argv[*i], "-m") == TRUE))
 	{
-		a_to_hex(argv[*i + 1], mem->champ[mem->number_champ].id);
-		mem->champ[mem->number_champ].id_perso = TRUE;
-		should_i_increment_this_int = YES;
+		mem->option_dump = DUMP_MULTI;
+		mem->value_dump = ft_atoui(argv[++(*i)]);
 	}
-	*i = (should_i_increment_this_int == YES) ? (*i + 1) : (*i);
+	else if ((ft_strequ(argv[*i], "--number") == TRUE) ||
+			(ft_strequ(argv[*i], "-n") == TRUE))
+	{
+		mem->champ[mem->number_champ].id_perso = TRUE;
+		a_to_hex(argv[++(*i)], mem->champ[mem->number_champ].id);
+	}
+	else
+		return (ft_putstr_error(argv[*i]));
+	return (SUCCESS);
 }

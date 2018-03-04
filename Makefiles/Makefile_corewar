@@ -6,7 +6,7 @@
 #    By: enanrock <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/26 06:35:09 by enanrock          #+#    #+#              #
-#    Updated: 2018/02/26 18:47:35 by enanrock         ###   ########.fr        #
+#    Updated: 2018/03/04 00:41:16 by enanrock         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,6 @@ NAME        := corewar
 
 FILES       := main help_corewar set_options set_champ set_process             \
                open_files_and_complete_memory_space convert_pc_to_uint
-LIBFT_FILES := ft_putstr ft_bzero ft_lstdel ft_simple_del
-LIBFT_SRC   := $(addprefix $(LIBFT_DIR), $(addsuffix .c, $(LIBFT_FILES)))
 
 LIBFT_DIR   := ../libft/
 SRC_DIR     := ../sources/
@@ -31,14 +29,14 @@ LIB_FLAGS   := -L$(LIBFT_DIR) -lft
 GCC_FLAGS   := -Wall -Wextra -Werror -I$(HDR_DIR) -I$(LIBFT_DIR)               \
                -g -fsanitize=address
 
-.PHONY : all leaks clean fclean re $(LIBFT_SRC)
+.PHONY : all leaks clean fclean re
 
 all: ../$(NAME)
 
 leaks:
 	leaks $(NAME)
 
-$(LIBFT_DIR)libft.a: $(LIBFT_SRC)
+$(LIBFT_DIR)libft.a:
 	@make libft.a -C $(LIBFT_DIR)
 
 ../$(NAME): $(LIBFT_DIR)libft.a $(OBJ)
@@ -61,6 +59,7 @@ $(DEP_DIR)%.d: $(SRC_DIR)%.c
 	@echo "\\\033[0;33m\"\"created   : $(@:$(DEP_DIR)%d=$(OBJ_DIR)%o)\"\c" >> $@
 	@echo "\"\\\033[m\""                                                   >> $@
 	@echo "\033[1;33m""created   : $@""\033[m"
+#	cat $@
 
 clean:
 	@echo "\033[0;31m""deleted all these files :""\033[m"

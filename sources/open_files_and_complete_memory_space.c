@@ -6,59 +6,60 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 11:20:35 by enanrock          #+#    #+#             */
-/*   Updated: 2018/02/26 14:51:05 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/03/04 00:07:13 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "open_files_and_complete_memory_space.h"
 
-static void		ft_putstr_error_too_fat(t_mem *mem, unsigned int i)
+static int		ft_putstr_error_too_fat(t_mem *mem, unsigned int i)
 {
-	ft_putstr_fd("ERROR : this champion is too fat : \"", 2);
+	ft_putstr_fd("\033[31m""ERROR""\033[m"" : the champion \"", 2);
 	ft_putstr_fd(mem->champ[i].file, 2);
-	ft_putstr_fd("\"\n", 2);
+	ft_putstr_fd("\" is too fat\n", 2);
+	return (ERROR);
 }
 
-static void		ft_putstr_error_cant_t_open(t_mem *mem, unsigned int i)
+static int		ft_putstr_error_cant_t_open(t_mem *mem, unsigned int i)
 {
-	ft_putstr_fd("ERROR : can't open \"", 2);
+	ft_putstr_fd("\033[31m""ERROR""\033[m"" : can't open \"", 2);
 	ft_putstr_fd(mem->champ[i].file, 2);
 	ft_putstr_fd("\"\n", 2);
+	return (ERROR);
 }
 
-static void		ft_putstr_error_cant_t_read(t_mem *mem, unsigned int i)
+static int		ft_putstr_error_cant_t_read(t_mem *mem, unsigned int i)
 {
-	ft_putstr_fd("ERROR : can't read \"", 2);
+	ft_putstr_fd("\033[31m""ERROR""\033[m"" : can't read \"", 2);
 	ft_putstr_fd(mem->champ[i].file, 2);
 	ft_putstr_fd("\"\n", 2);
+	return (ERROR);
 }
 
-void			complete_memory_space(t_mem *mem, int fd, unsigned int i)
+int				complete_memory_space(t_mem *mem, int fd, unsigned int i)
 {
 	unsigned char	buf[BUF_SIZE];
 	ssize_t			length;
 
 	ft_bzero(buf, (CHAMP_MAX_SIZE + 1) * sizeof(unsigned char));
 	if (read(fd, buf, 4 + PROG_NAME_LENGTH + 4) == ERROR)
-		ft_putstr_error_cant_t_read(mem, i);
-	else
-		ft_strmove(mem->champ[i].name, (char *)(buf + 4));
+		return (ft_putstr_error_cant_t_read(mem, i));
+	ft_strmove(mem->champ[i].name, (char *)(buf + 4));
 	ft_bzero(buf, (CHAMP_MAX_SIZE + 1) * sizeof(unsigned char));
 	if (read(fd, buf, 4 + COMMENT_LENGTH + 4) == ERROR)
-		ft_putstr_error_cant_t_read(mem, i);
-	else
-		ft_strmove(mem->champ[i].description, (char *)(buf + 4));
+		return (ft_putstr_error_cant_t_read(mem, i));
+	ft_strmove(mem->champ[i].description, (char *)(buf + 4));
 	ft_bzero(buf, (CHAMP_MAX_SIZE + 1) * sizeof(unsigned char));
 	if ((length = read(fd, buf, CHAMP_MAX_SIZE + 1)) == ERROR)
-		ft_putstr_error_cant_t_read(mem, i);
-	else if (length == CHAMP_MAX_SIZE + 1)
-		ft_putstr_error_too_fat(mem, i);
-	else
-		ft_memmove(&(mem->memory_space[i * MEM_SIZE / mem->number_champ]), buf,
-				CHAMP_MAX_SIZE);
+		return (ft_putstr_error_cant_t_read(mem, i));
+	if (length == CHAMP_MAX_SIZE + 1)
+		return (ft_putstr_error_too_fat(mem, i));
+	ft_memmove(&(mem->memory_space[i * MEM_SIZE / mem->number_champ]), buf,
+			CHAMP_MAX_SIZE);
+	return (SUCCESS);
 }
 
-void			open_files_and_complete_memory_space(t_mem *mem)
+int				open_files_and_complete_memory_space(t_mem *mem)
 {
 	int				fd;
 	unsigned int	i;
@@ -67,12 +68,18 @@ void			open_files_and_complete_memory_space(t_mem *mem)
 	while (i < mem->number_champ)
 	{
 		if ((fd = open(mem->champ[i].file, O_RDONLY)) == ERROR)
-			ft_putstr_error_cant_t_open(mem, i);
+			return (ft_putstr_error_cant_t_open(mem, i));
 		else
 		{
-			complete_memory_space(mem, fd, i);
-			close(fd);
+			if (complete_memory_space(mem, fd, i) == ERROR)
+			{
+				close(fd);
+				return (ERROR);
+			}
+			else
+				close(fd);
 		}
 		i++;
 	}
+	return (SUCCESS);
 }

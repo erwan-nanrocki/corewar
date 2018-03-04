@@ -6,18 +6,17 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 15:18:18 by enanrock          #+#    #+#             */
-/*   Updated: 2018/02/26 18:32:49 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/03/04 00:50:54 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-static void		initialize(t_mem *mem, int argc, char **argv)
+static void		initialize_mem_champ_ids(t_mem *mem)
 {
 	int		i;
 	int		j;
 
-	ft_bzero(mem, sizeof(t_mem));
 	i = 0;
 	while (i < MAX_PLAYERS)
 	{
@@ -31,14 +30,28 @@ static void		initialize(t_mem *mem, int argc, char **argv)
 			mem->champ[i].id[0] = mem->champ[i - 1].id[0] - 1;
 		i++;
 	}
+}
+
+static int		initialize(t_mem *mem, int argc, char **argv)
+{
+	int		i;
+
+	ft_bzero(mem, sizeof(t_mem));
+	initialize_mem_champ_ids(mem);
 	i = 0;
 	while (++i < argc)
-		if (argv[i][0] == '-')
-			set_options(argv, &i, mem);
-		else
-			set_champ(argv[i], mem);
-	open_files_and_complete_memory_space(mem);
-	set_process(mem);
+		if ((argv[i][0] == '-') && ((i + 1) != argc))
+		{
+			if (set_options(argv, &i, mem) == ERROR)
+				return (ERROR);
+		}
+		else if (set_champ(argv[i], mem) == ERROR)
+			return (ERROR);
+	if (open_files_and_complete_memory_space(mem) == ERROR)
+		return (ERROR);
+	if (set_process(mem) == ERROR)
+		return (ERROR);
+	return (SUCCESS);
 }
 
 static void		terminate(t_mem *mem)
@@ -63,7 +76,14 @@ int				main(int argc, char **argv)
 		help_corewar(argv[0]);
 		return (0);
 	}
-	initialize(&mem, argc, argv);
+	if (initialize(&mem, argc, argv) == ERROR)
+	{
+		ft_putendl("NOOOOOOOOOOOOOOOO");
+		terminate(&mem);
+		return (0);
+	}
+	else
+		ft_putendl("YEEEEEEEEEEEEEEEEES");
 	{
 		unsigned int	i;
 		unsigned int	j;
@@ -160,7 +180,8 @@ int				main(int argc, char **argv)
 				ft_putstr(" op_code=0x");
 				ft_puthex(((t_local_memory *)(process->content))->op_code);
 				ft_putstr(" cycle = ");
-				ft_putunbr(((t_local_memory *)(process->content))->cycle_countdown);
+				ft_putunbr(((t_local_memory *)
+							(process->content))->cycle_countdown);
 				ft_putchar('\n');
 				ft_putchar('\n');
 				process = process->next;
