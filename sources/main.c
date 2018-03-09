@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 15:18:18 by enanrock          #+#    #+#             */
-/*   Updated: 2018/03/04 00:50:54 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/03/09 13:37:13 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void		initialize_mem_champ_ids(t_mem *mem)
 			j++;
 		}
 		if (i > 0)
-			mem->champ[i].id[0] = mem->champ[i - 1].id[0] - 1;
+			mem->champ[i].id[j - 1] = mem->champ[i - 1].id[j - 1] - 1;
 		i++;
 	}
 }
@@ -40,9 +40,9 @@ static int		initialize(t_mem *mem, int argc, char **argv)
 	initialize_mem_champ_ids(mem);
 	i = 0;
 	while (++i < argc)
-		if ((argv[i][0] == '-') && ((i + 1) != argc))
+		if (argv[i][0] == '-')
 		{
-			if (set_options(argv, &i, mem) == ERROR)
+			if (set_options(argv, &i, argc, mem) == ERROR)
 				return (ERROR);
 		}
 		else if (set_champ(argv[i], mem) == ERROR)
@@ -51,6 +51,7 @@ static int		initialize(t_mem *mem, int argc, char **argv)
 		return (ERROR);
 	if (set_process(mem) == ERROR)
 		return (ERROR);
+	mem->current_cycle_to_die = CYCLE_TO_DIE;
 	return (SUCCESS);
 }
 
@@ -89,7 +90,7 @@ int				main(int argc, char **argv)
 		unsigned int	j;
 		int				size;
 
-		ft_putstr("\n~~~~~~~~~\n");
+		ft_putstr("\n~~~~~~~~~ map info ~~~~~~~~~\n");
 		size = 64;
 		i = 0;
 		while (i < MEM_SIZE)
@@ -108,21 +109,12 @@ int				main(int argc, char **argv)
 			}
 			{
 				t_list			*process;
-				unsigned int	pc;
 
 				process = mem.process;
 				while (process != NULL)
 				{
-					pc = 0;
-					j = REG_SIZE;
-					while (j > 0)
-					{
-						pc = pc * 0xff + (((t_local_memory *)
-									(process->content))->program_counter[j - 1])
-							% 0xff;
-						j--;
-					}
-					if (pc == i)
+					if (convert_pc_to_uint(((t_local_memory *)
+								(process->content))->program_counter) == i)
 						ft_putstr("\033[7m");
 					process = process->next;
 				}
@@ -134,8 +126,9 @@ int				main(int argc, char **argv)
 			ft_putstr(" ");
 			i++;
 		}
-		ft_putstr("\n");
-		ft_putstr("\n");
+		ft_putstr("\n\n");
+		ft_putstr("@@@@@@@@@ champ info @@@@@@@@@");
+		ft_putstr("\n\n");
 		{
 			i = 0;
 			while (i < MAX_PLAYERS)
@@ -150,11 +143,13 @@ int				main(int argc, char **argv)
 				ft_puthex(convert_pc_to_uint(mem.champ[i].id));
 				ft_putstr("\"(");
 				ft_putnbr(mem.champ[i].id_perso);
-				ft_putstr(")\n");
+				ft_putstr(")  | last live = ");
+				ft_putnbr(mem.champ[i].last_live);
+				ft_putstr("\n");
 				i++;
 			}
 		}
-		ft_putstr("\n********\n");
+		ft_putstr("\n****** local memory info (olddest > youngest) ******\n\n");
 		{
 			t_list			*process;
 
@@ -177,15 +172,33 @@ int				main(int argc, char **argv)
 				ft_putchar('\n');
 				ft_putstr(" carry = ");
 				ft_putnbr(((t_local_memory *)(process->content))->carry);
-				ft_putstr(" op_code=0x");
+				ft_putstr(" | op_code=0x");
 				ft_puthex(((t_local_memory *)(process->content))->op_code);
-				ft_putstr(" cycle = ");
+				ft_putstr(" | cycle_countdown = ");
 				ft_putunbr(((t_local_memory *)
 							(process->content))->cycle_countdown);
 				ft_putchar('\n');
 				ft_putchar('\n');
 				process = process->next;
 			}
+		}
+		ft_putstr("\n!!!!!! other info !!!!!!\n");
+		{
+			ft_putstr("\n""number_champ         = ");
+			ft_putunbr(mem.number_champ);
+			ft_putstr("\n""current_cycle_to_die = ");
+			ft_putunbr(mem.current_cycle_to_die);
+			ft_putstr("\n""current_nbr_live     = ");
+			ft_putunbr(mem.current_nbr_live);
+			ft_putstr("\n""cycles               = ");
+			ft_putunbr(mem.cycles);
+			ft_putstr("\n""option_aff           = ");
+			ft_putnbr(mem.option_aff);
+			ft_putstr("\n""option_dump          = ");
+			ft_putnbr(mem.option_dump);
+			ft_putstr("\n""value_dump           = ");
+			ft_putunbr(mem.value_dump);
+			ft_putstr("\n");
 		}
 	}
 	terminate(&mem);
