@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2018/02/13 17:01:39 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/03/13 01:05:57 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,20 @@ typedef	struct		s_header
 	unsigned int	prog_size;
 	char			comment[COMMENT_LENGTH + 1];
 }					t_header;
+
+/*
+**  t_op added manually
+*/
+typedef	struct		s_op
+{
+	char			*name;
+	unsigned int	number_of_parameters;
+	unsigned int	type_of_parameters[4];
+	unsigned char	opcode;
+	unsigned int	cycle_duration;
+	char			*description;
+	int				boolean_argument_coding_byte;
+	int				boolean_length_direct;
+}					t_op;
 
 #endif

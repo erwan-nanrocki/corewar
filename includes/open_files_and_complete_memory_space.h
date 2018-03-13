@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/24 14:23:17 by enanrock          #+#    #+#             */
-/*   Updated: 2018/03/03 23:25:06 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/03/12 22:43:39 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <fcntl.h>
 # include <unistd.h>
 
-# include "op.h"
 # include "mem.h"
 # include "open_files_and_complete_memory_space.h"
 

@@ -6,7 +6,7 @@
 #    By: enanrock <marvin42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/02 11:41:31 by enanrock          #+#    #+#              #
-#    Updated: 2018/03/03 23:10:36 by enanrock         ###   ########.fr        #
+#    Updated: 2018/03/12 20:28:29 by enanrock         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,6 @@ $(LIB):
 author:
 	@echo "\033[1;37m""\c"
 	echo "enanrock"  > author
-	echo "fmasiala" >> author
 	echo "mbenjell" >> author
 	echo "mbriffau" >> author
 	@echo "\033[m"

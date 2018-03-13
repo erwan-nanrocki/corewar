@@ -6,11 +6,13 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 15:18:18 by enanrock          #+#    #+#             */
-/*   Updated: 2018/03/09 13:37:13 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/03/13 01:55:24 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
+
+#include "op.c"
 
 static void		initialize_mem_champ_ids(t_mem *mem)
 {
@@ -85,11 +87,16 @@ int				main(int argc, char **argv)
 	}
 	else
 		ft_putendl("YEEEEEEEEEEEEEEEEES");
+	if (mem.value_dump == 0)
+		ft_putendl("\033[7m""Please add \"-d 123\" to view the result");
+	while (mem.cycles < mem.value_dump)
 	{
 		unsigned int	i;
 		unsigned int	j;
 		int				size;
 
+		read(1, NULL, 1);
+		cycle_plus_plus(&mem);
 		ft_putstr("\n~~~~~~~~~ map info ~~~~~~~~~\n");
 		size = 64;
 		i = 0;
@@ -166,17 +173,17 @@ int				main(int argc, char **argv)
 									(process->content))->registers[j]));
 					j++;
 				}
-				ft_putstr(" pc = ");
+				ft_putstr("\n carry = ");
+				ft_putnbr(((t_local_memory *)(process->content))->carry);
+				ft_putstr(" | \033[7m""pc = ");
 				ft_puthex(convert_pc_to_uint(((t_local_memory *)
 								(process->content))->program_counter));
-				ft_putchar('\n');
-				ft_putstr(" carry = ");
-				ft_putnbr(((t_local_memory *)(process->content))->carry);
-				ft_putstr(" | op_code=0x");
-				ft_puthex(((t_local_memory *)(process->content))->op_code);
-				ft_putstr(" | cycle_countdown = ");
+				ft_putstr("\033[m | \033[7m""opcode=0x");
+				ft_puthex(((t_local_memory *)(process->content))->opcode);
+				ft_putstr("\033[7m | \033[7m""cycle_countdown = ");
 				ft_putunbr(((t_local_memory *)
 							(process->content))->cycle_countdown);
+				ft_putstr("\033[m");
 				ft_putchar('\n');
 				ft_putchar('\n');
 				process = process->next;
@@ -190,9 +197,9 @@ int				main(int argc, char **argv)
 			ft_putunbr(mem.current_cycle_to_die);
 			ft_putstr("\n""current_nbr_live     = ");
 			ft_putunbr(mem.current_nbr_live);
-			ft_putstr("\n""cycles               = ");
+			ft_putstr("\n""\033[7m""cycles                = ");
 			ft_putunbr(mem.cycles);
-			ft_putstr("\n""option_aff           = ");
+			ft_putstr("\033[m""\n""option_aff           = ");
 			ft_putnbr(mem.option_aff);
 			ft_putstr("\n""option_dump          = ");
 			ft_putnbr(mem.option_dump);

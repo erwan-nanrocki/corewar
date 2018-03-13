@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   convert_pc_to_uint.h                               :+:      :+:    :+:   */
+/*   change_op.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/26 17:50:59 by enanrock          #+#    #+#             */
-/*   Updated: 2018/03/12 22:43:00 by enanrock         ###   ########.fr       */
+/*   Created: 2018/03/11 14:01:36 by enanrock          #+#    #+#             */
+/*   Updated: 2018/03/13 01:41:18 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONVERT_PC_TO_UINT_H
-# define CONVERT_PC_TO_UINT_H
+#ifndef CHANGE_OP_H
+# define CHANGE_OP_H
 
 # include "mem.h"
+# include "convert_pc_to_uint.h"
 
-unsigned int	convert_pc_to_uint(unsigned char pc[REG_SIZE]);
+void	change_op(t_local_memory *read_head, t_mem *mem, unsigned int skip);
+
+extern t_op		op_tab[17];
 
 #endif
