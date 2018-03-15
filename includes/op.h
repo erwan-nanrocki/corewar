@@ -6,18 +6,16 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2018/03/13 01:05:57 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/03/15 08:39:51 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OP_H
-
 # define OP_H
 
 /*
 ** Toutes les tailles sont en octets.
 ** On part du principe qu'un int fait 32 bits. Est-ce vrai chez vous ?
-** UINT_MAX_32 = 2^32 - 1 = 4,294,967,295 = ff ff ff ff
 */
 
 # define IND_SIZE				2
@@ -51,7 +49,7 @@
 # define NBR_LIVE				21
 # define MAX_CHECKS				10
 
-typedef	char	t_arg_type;
+typedef char	t_arg_type;
 
 # define T_REG					1
 # define T_DIR					2
@@ -62,7 +60,11 @@ typedef	char	t_arg_type;
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
 
-typedef	struct		s_header
+/*
+**  renamed from "header_X" to "X_header"
+*/
+
+typedef struct		s_header
 {
 	unsigned int	magic;
 	char			prog_name[PROG_NAME_LENGTH + 1];
@@ -70,9 +72,6 @@ typedef	struct		s_header
 	char			comment[COMMENT_LENGTH + 1];
 }					t_header;
 
-/*
-**  t_op added manually
-*/
 typedef	struct		s_op
 {
 	char			*name;
@@ -84,5 +83,11 @@ typedef	struct		s_op
 	int				boolean_argument_coding_byte;
 	int				boolean_length_direct;
 }					t_op;
+
+typedef	struct		s_op_plus
+{
+	t_op			data;
+	int				(*action)(void *, void *);
+}					t_op_plus;
 
 #endif

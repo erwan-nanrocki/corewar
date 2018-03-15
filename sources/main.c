@@ -6,13 +6,11 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 15:18:18 by enanrock          #+#    #+#             */
-/*   Updated: 2018/03/13 01:55:24 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/03/15 06:39:45 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-
-#include "op.c"
 
 static void		initialize_mem_champ_ids(t_mem *mem)
 {
@@ -54,19 +52,18 @@ static int		initialize(t_mem *mem, int argc, char **argv)
 	if (set_process(mem) == ERROR)
 		return (ERROR);
 	mem->current_cycle_to_die = CYCLE_TO_DIE;
+	set_op_tab(mem);
 	return (SUCCESS);
 }
 
 static void		terminate(t_mem *mem)
 {
-	int		i;
-
 	ft_lstdel(&(mem->process), ft_simple_del);
-	i = 0;
-	while (i < MAX_PLAYERS)
+	if (mem->option_leaks == TRUE)
 	{
-		ft_strdel(&(mem->champ[i].file));
-		i++;
+		ft_bzero(mem, sizeof(t_mem));
+		ft_putendl("\033[31m""leaks lest");
+		read(1, NULL, 1);
 	}
 }
 
@@ -197,7 +194,7 @@ int				main(int argc, char **argv)
 			ft_putunbr(mem.current_cycle_to_die);
 			ft_putstr("\n""current_nbr_live     = ");
 			ft_putunbr(mem.current_nbr_live);
-			ft_putstr("\n""\033[7m""cycles                = ");
+			ft_putstr("\n""\033[7m""cycles               = ");
 			ft_putunbr(mem.cycles);
 			ft_putstr("\033[m""\n""option_aff           = ");
 			ft_putnbr(mem.option_aff);

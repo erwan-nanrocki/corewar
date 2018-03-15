@@ -6,7 +6,7 @@
 #    By: enanrock <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/26 06:35:09 by enanrock          #+#    #+#              #
-#    Updated: 2018/03/11 14:01:30 by enanrock         ###   ########.fr        #
+#    Updated: 2018/03/15 08:28:09 by enanrock         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME        := corewar
 
 FILES       := main help_corewar set_options set_champ set_process change_op   \
                open_files_and_complete_memory_space convert_pc_to_uint do_op   \
-               cycle_plus_plus
+               cycle_plus_plus set_op_tab
 
 LIBFT_DIR   := ../libft/
 SRC_DIR     := ../sources/
@@ -28,8 +28,7 @@ DEP         := $(addprefix $(DEP_DIR), $(addsuffix .d, $(FILES)))
 
 LIB_FLAGS   := -L$(LIBFT_DIR) -lft
 
-GCC_FLAGS   := -Wall -Wextra -Werror -I$(HDR_DIR) -I$(LIBFT_DIR)               \
-               -g -fsanitize=address
+GCC_FLAGS   := -Wall -Wextra -Werror -I$(HDR_DIR) -I$(LIBFT_DIR)
 
 .PHONY: all leaks clean fclean re $(SRC)
 

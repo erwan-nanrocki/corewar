@@ -6,7 +6,7 @@
 #    By: enanrock <marvin42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/02 11:41:31 by enanrock          #+#    #+#              #
-#    Updated: 2018/03/12 20:28:29 by enanrock         ###   ########.fr        #
+#    Updated: 2018/03/15 06:01:53 by enanrock         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ HDR_DIR   := ./includes/
 
 LIB       := $(addsuffix Makefile, $(LIBFT_DIR))
 
-.PHONY: all clean fclean re norme where_is_malloc tuto tuto_corewar
+.PHONY: all clean fclean re leaks reset norme where_is_malloc tuto tuto_corewar
 
 all: $(LIB) author .gitignore .gitmodules
 	@make $@ -C Makefiles -f Makefile_$(NAME_001)
@@ -87,6 +87,10 @@ author:
 	echo "*.cor"       >> $@
 	echo "*_DONE"      >> $@
 	@echo "\033[m"
+
+leaks:
+	leaks $(NAME_001)
+#	leaks $(NAME_002)
 
 reset:
 	rm -Rf author

@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 23:26:59 by enanrock          #+#    #+#             */
-/*   Updated: 2018/02/16 07:24:42 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/03/15 05:59:29 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	help_corewar(char *name)
 	ft_putstr(" pauses, then repeats\n");
 	ft_putstr("    --number Hex (-n Hex) : Change the ID's number of");
 	ft_putstr(" the next champion\n");
+	ft_putstr("    --leaks (-l )         : Pause the executable to");
+	ft_putstr(" do some leaks test\n");
 	ft_putstr("########################################");
 	ft_putstr("########################################\n");
 }

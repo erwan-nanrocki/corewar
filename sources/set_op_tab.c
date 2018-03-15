@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op.c                                               :+:      :+:    :+:   */
+/*   set_op_tab.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2018/01/25 14:02:05 by enanrock         ###   ########.fr       */
+/*   Created: 2018/03/15 06:40:02 by enanrock          #+#    #+#             */
+/*   Updated: 2018/03/15 09:56:11 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "op.h"
+#include "set_op_tab.h"
 
-t_op	op_tab[17] =
+t_op	g_op_tab[17] =
 {
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
 	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0},
@@ -38,3 +38,23 @@ t_op	op_tab[17] =
 	{"aff", 1, {T_REG}, 16, 2, "aff", 1, 0},
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
+
+void	set_op_tab(t_mem *mem)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < 256)
+	{
+		j = 0;
+		while (j < 17)
+		{
+			if (g_op_tab[j].opcode == i)
+				ft_memmove(&(mem->op_tab[i].data), &(g_op_tab[j]),
+						sizeof(t_op));
+			j++;
+		}
+		i++;
+	}
+}

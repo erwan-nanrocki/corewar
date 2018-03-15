@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 17:27:46 by enanrock          #+#    #+#             */
-/*   Updated: 2018/03/13 00:48:17 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/03/15 08:40:16 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ typedef	struct		s_mem
 	int				option_aff;
 	int				option_dump;
 	unsigned int	value_dump;
+	int				option_leaks;
+	t_op_plus		op_tab[256];
 }					t_mem;
 
 #endif

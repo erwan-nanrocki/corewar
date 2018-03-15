@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/26 14:52:20 by enanrock          #+#    #+#             */
-/*   Updated: 2018/03/13 01:40:13 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/03/15 09:53:45 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,8 @@ static void		initialize(t_local_memory *content, int i, t_mem *mem)
 	content->carry = 1;
 	content->opcode =
 		mem->memory_space[convert_pc_to_uint(content->program_counter)];
-	i = 0;
-	while ((i < 16) && (op_tab[i].opcode != content->opcode))
-		i++;
-	if (i < 17)
-		content->cycle_countdown = op_tab[i].cycle_duration;
-	else
-		content->cycle_countdown = 1;
+	content->cycle_countdown =
+		mem->op_tab[content->opcode].data.cycle_duration;
 }
 
 static int		create_new_process(int i, t_mem *mem)

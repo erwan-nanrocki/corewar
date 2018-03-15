@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 07:31:11 by enanrock          #+#    #+#             */
-/*   Updated: 2018/03/04 00:37:19 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/03/15 05:46:29 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		set_champ(char *file, t_mem *mem)
 {
 	if (mem->number_champ < MAX_PLAYERS)
 	{
-		mem->champ[mem->number_champ].file = ft_strdup(file);
+		mem->champ[mem->number_champ].file = file;
 		mem->number_champ++;
 	}
 	else

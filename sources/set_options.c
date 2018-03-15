@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 06:11:39 by enanrock          #+#    #+#             */
-/*   Updated: 2018/03/09 13:26:04 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/03/15 09:26:52 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,6 @@ static int		a_to_hex(char *str, unsigned char new_id[REG_SIZE])
 	return (SUCCESS);
 }
 
-static int		ft_putstr_error_option(char *str)
-{
-	ft_putstr_fd("\033[31m""ERROR""\033[m"" : the option \"", 2);
-	ft_putstr_fd(str, 2);
-	ft_putstr_fd("\" does not exit, or it's incomplete\n", 2);
-	return (ERROR);
-}
-
 static int		ft_putstr_error_number(char *str)
 {
 	ft_putstr_fd("\033[31m""ERROR""\033[m"" : the number \"", 2);
@@ -66,6 +58,28 @@ static int		ft_putstr_error_number(char *str)
 	ft_putunbr_fd(2 * REG_SIZE, 2);
 	ft_putstr_fd(" chars)\n", 2);
 	return (ERROR);
+}
+
+int				next_set_options(char **argv, int *i, int argc, t_mem *mem)
+{
+	if ((*i + 2 < argc) && ((ft_strequ(argv[*i], "--number") == TRUE)
+				|| (ft_strequ(argv[*i], "-n") == TRUE)))
+	{
+		mem->champ[mem->number_champ].id_perso = TRUE;
+		if (a_to_hex(argv[++(*i)], mem->champ[mem->number_champ].id) == ERROR)
+			return (ft_putstr_error_number(argv[*i]));
+	}
+	else if ((ft_strequ(argv[*i], "--leaks") == TRUE) ||
+			(ft_strequ(argv[*i], "-l") == TRUE))
+		mem->option_leaks = TRUE;
+	else
+	{
+		ft_putstr_fd("\033[31m""ERROR""\033[m"" : the option \"", 2);
+		ft_putstr_fd(argv[*i], 2);
+		ft_putstr_fd("\" does not exit, or it's incomplete\n", 2);
+		return (ERROR);
+	}
+	return (SUCCESS);
 }
 
 int				set_options(char **argv, int *i, int argc, t_mem *mem)
@@ -85,14 +99,7 @@ int				set_options(char **argv, int *i, int argc, t_mem *mem)
 		mem->option_dump = DUMP_MULTI;
 		mem->value_dump = ft_atoui(argv[++(*i)]);
 	}
-	else if ((*i + 2 < argc) && ((ft_strequ(argv[*i], "--number") == TRUE)
-				|| (ft_strequ(argv[*i], "-n") == TRUE)))
-	{
-		mem->champ[mem->number_champ].id_perso = TRUE;
-		if (a_to_hex(argv[++(*i)], mem->champ[mem->number_champ].id) == ERROR)
-			return (ft_putstr_error_number(argv[*i]));
-	}
 	else
-		return (ft_putstr_error_option(argv[*i]));
+		return (next_set_options(argv, i, argc, mem));
 	return (SUCCESS);
 }
