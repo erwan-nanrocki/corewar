@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   do_op.c                                            :+:      :+:    :+:   */
+/*   zjmp.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/11 14:03:09 by enanrock          #+#    #+#             */
-/*   Updated: 2018/03/24 01:13:12 by enanrock         ###   ########.fr       */
+/*   Created: 2018/04/01 13:35:34 by enanrock          #+#    #+#             */
+/*   Updated: 2018/04/01 13:37:19 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "do_op.h"
+#ifndef ZJMP_H
+# define ZJMP_H
 
-int		do_op(t_local_memory *read_head, t_mem *mem)
-{
-	if (mem->op_tab[read_head->opcode].action == NULL)
-		return (1);
-	else
-		return (mem->op_tab[read_head->opcode].action(read_head, mem));
-}
+# include "mem.h"
+# include "convert_pc_to_uint.h"
+
+int		zjmp(void *read_head, void *mem);
+
+#endif

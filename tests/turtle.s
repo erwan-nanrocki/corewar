@@ -1,6 +1,7 @@
 .name 		"turtle"
 .comment	"TURTLE FFS U LAMA"
 
+	live		%12
 entry:
 	sti			r1, %:zork, %1
 	sti			r1, %:ardef, %1

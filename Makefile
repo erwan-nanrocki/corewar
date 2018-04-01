@@ -6,7 +6,7 @@
 #    By: enanrock <marvin42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/02 11:41:31 by enanrock          #+#    #+#              #
-#    Updated: 2018/03/15 06:01:53 by enanrock         ###   ########.fr        #
+#    Updated: 2018/03/17 20:56:28 by enanrock         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,6 +89,7 @@ author:
 	@echo "\033[m"
 
 leaks:
+	clear
 	leaks $(NAME_001)
 #	leaks $(NAME_002)
 

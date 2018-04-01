@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 15:18:18 by enanrock          #+#    #+#             */
-/*   Updated: 2018/03/15 06:39:45 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/03/29 00:09:18 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static int		initialize(t_mem *mem, int argc, char **argv)
 
 	ft_bzero(mem, sizeof(t_mem));
 	initialize_mem_champ_ids(mem);
+	set_op_tab(mem);
 	i = 0;
 	while (++i < argc)
 		if (argv[i][0] == '-')
@@ -52,7 +53,6 @@ static int		initialize(t_mem *mem, int argc, char **argv)
 	if (set_process(mem) == ERROR)
 		return (ERROR);
 	mem->current_cycle_to_die = CYCLE_TO_DIE;
-	set_op_tab(mem);
 	return (SUCCESS);
 }
 
@@ -147,9 +147,9 @@ int				main(int argc, char **argv)
 				ft_puthex(convert_pc_to_uint(mem.champ[i].id));
 				ft_putstr("\"(");
 				ft_putnbr(mem.champ[i].id_perso);
-				ft_putstr(")  | last live = ");
+				ft_putstr(")  | \033[7m""last live = ");
 				ft_putnbr(mem.champ[i].last_live);
-				ft_putstr("\n");
+				ft_putstr("\033[m""\n");
 				i++;
 			}
 		}
@@ -177,7 +177,7 @@ int				main(int argc, char **argv)
 								(process->content))->program_counter));
 				ft_putstr("\033[m | \033[7m""opcode=0x");
 				ft_puthex(((t_local_memory *)(process->content))->opcode);
-				ft_putstr("\033[7m | \033[7m""cycle_countdown = ");
+				ft_putstr("\033[m | \033[7m""cycle_countdown = ");
 				ft_putunbr(((t_local_memory *)
 							(process->content))->cycle_countdown);
 				ft_putstr("\033[m");
@@ -192,7 +192,7 @@ int				main(int argc, char **argv)
 			ft_putunbr(mem.number_champ);
 			ft_putstr("\n""current_cycle_to_die = ");
 			ft_putunbr(mem.current_cycle_to_die);
-			ft_putstr("\n""current_nbr_live     = ");
+			ft_putstr("\n""\033[7m""current_nbr_live     = ");
 			ft_putunbr(mem.current_nbr_live);
 			ft_putstr("\n""\033[7m""cycles               = ");
 			ft_putunbr(mem.cycles);
