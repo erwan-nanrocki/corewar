@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_op_tab.h                                       :+:      :+:    :+:   */
+/*   sub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/15 06:42:07 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/03 10:43:31 by enanrock         ###   ########.fr       */
+/*   Created: 2018/04/03 10:16:52 by enanrock          #+#    #+#             */
+/*   Updated: 2018/04/04 15:48:06 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SET_OP_TAB_H
-# define SET_OP_TAB_H
+#ifndef SUB_H
+# define SUB_H
 
-# include "op.h"
 # include "mem.h"
+# include "convert_pc_to_uint.h"
 
-# include "live.h"
-# include "ld.h"
-# include "st.h"
-# include "add.h"
-# include "sub.h"
-# include "and.h"
-# include "zjmp.h"
-
-void	set_op_tab(t_mem *mem);
+int		sub(void *read_head, void *mem);
 
 #endif

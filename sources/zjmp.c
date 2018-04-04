@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/01 13:35:20 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/01 14:44:09 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/04 17:51:14 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static unsigned int		new_pc(t_mem *mem, unsigned int pc)
 	}
 	if (t >= (0x80 * ft_a_power_b(0x100, IND_SIZE - 1)))
 		t -= ft_a_power_b(0x100, IND_SIZE);
-//	t %= IDX_MOD;
+	t %= IDX_MOD;
 	return ((pc + t) % MEM_SIZE);
 }
 

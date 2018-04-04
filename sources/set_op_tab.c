@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 06:40:02 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/01 13:35:05 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/03 19:16:44 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ static void		set_action(t_mem *mem)
 	mem->op_tab[2].action = &(ld);
 	mem->op_tab[3].action = &(st);
 	mem->op_tab[4].action = &(add);
-//	mem->op_tab[5].action = &(sub);
-//	mem->op_tab[6].action = &(and);
+	mem->op_tab[5].action = &(sub);
+	mem->op_tab[6].action = &(and);
 //	mem->op_tab[7].action = &(or);
 //	mem->op_tab[8].action = &(xor);
 	mem->op_tab[9].action = &(zjmp);

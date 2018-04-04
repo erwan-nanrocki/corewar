@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 15:18:18 by enanrock          #+#    #+#             */
-/*   Updated: 2018/03/29 00:09:18 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/03 10:26:50 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ int				main(int argc, char **argv)
 					j++;
 				}
 				ft_putstr("\n carry = ");
-				ft_putnbr(((t_local_memory *)(process->content))->carry);
+				ft_puthex(((t_local_memory *)(process->content))->carry);
 				ft_putstr(" | \033[7m""pc = ");
 				ft_puthex(convert_pc_to_uint(((t_local_memory *)
 								(process->content))->program_counter));

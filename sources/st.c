@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 08:25:19 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/01 13:05:54 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/01 14:52:36 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,12 @@ int				st(void *p1, void *p2)
 	mem = p2;
 	pc = convert_pc_to_uint(read_head->program_counter);
 	if (mem->memory_space[(pc + 1) % MEM_SIZE] == ACB_RI)
-	{
 		if ((mem->memory_space[(pc + 2) % MEM_SIZE] == 0) ||
 				(mem->memory_space[(pc + 2) % MEM_SIZE] >= REG_SIZE))
 			return (1 + 1 + 1 + IND_SIZE);
 		else
 			return (st_ri(read_head, mem, pc));
-	}
 	else if (mem->memory_space[(pc + 1) % MEM_SIZE] == ACB_RR)
-	{
 		if ((mem->memory_space[(pc + 2) % MEM_SIZE] == 0) ||
 				(mem->memory_space[(pc + 2) % MEM_SIZE] >= REG_SIZE) ||
 				(mem->memory_space[(pc + 3) % MEM_SIZE] == 0) ||
@@ -81,7 +78,6 @@ int				st(void *p1, void *p2)
 			return (1 + 1 + 1 + 1);
 		else
 			return (st_rr(read_head, mem, pc));
-	}
 	else
 		return (1 + 1);
 }
