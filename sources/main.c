@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 15:18:18 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/03 10:26:50 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/12 23:07:22 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int				main(int argc, char **argv)
 
 		read(1, NULL, 1);
 		cycle_plus_plus(&mem);
+		ft_putstr("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 		ft_putstr("\n~~~~~~~~~ map info ~~~~~~~~~\n");
 		size = 64;
 		i = 0;
@@ -123,9 +124,9 @@ int				main(int argc, char **argv)
 					process = process->next;
 				}
 			}
-			if (mem.memory_space[i] < 16)
+			if (mem.memory_space[i % MEM_SIZE] < 16)
 				ft_putstr("0");
-			ft_puthex(mem.memory_space[i]);
+			ft_puthex(mem.memory_space[i % MEM_SIZE]);
 			ft_putstr("\033[m");
 			ft_putstr(" ");
 			i++;
@@ -160,11 +161,11 @@ int				main(int argc, char **argv)
 			process = mem.process;
 			while (process != NULL)
 			{
-				j = 0;
-				while (j < REG_NUMBER)
+				j = 1;
+				while (j <= REG_NUMBER)
 				{
 					ft_putstr(" r");
-					ft_putnbr(j + 1);
+					ft_putnbr(j);
 					ft_putstr("=");
 					ft_puthex(convert_pc_to_uint(((t_local_memory *)
 									(process->content))->registers[j]));

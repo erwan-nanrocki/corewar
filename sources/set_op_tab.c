@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 06:40:02 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/03 19:16:44 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/12 23:17:46 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,32 +47,37 @@ static void		set_action(t_mem *mem)
 	mem->op_tab[4].action = &(add);
 	mem->op_tab[5].action = &(sub);
 	mem->op_tab[6].action = &(and);
-//	mem->op_tab[7].action = &(or);
-//	mem->op_tab[8].action = &(xor);
+	mem->op_tab[7].action = &(or);
+	mem->op_tab[8].action = &(xor);
 	mem->op_tab[9].action = &(zjmp);
-//	mem->op_tab[10].action = &(ldi);
-//	mem->op_tab[11].action = &(sti);
-//	mem->op_tab[12].action = &(fork);
-//	mem->op_tab[13].action = &(lld);
-//	mem->op_tab[14].action = &(lldi);
-//	mem->op_tab[15].action = &(lfork);
-//	mem->op_tab[16].action = &(aff);
+	mem->op_tab[10].action = &(ldi);
+	mem->op_tab[11].action = &(sti);
+	mem->op_tab[12].action = &(fork_e);
+	mem->op_tab[13].action = &(lld);
+	mem->op_tab[14].action = &(lldi);
+	mem->op_tab[15].action = &(lfork_e);
+	mem->op_tab[16].action = &(aff);
 }
 
 void			set_op_tab(t_mem *mem)
 {
 	int		i;
 	int		j;
+	t_op	end;
 
+	ft_bzero(&end, sizeof(t_op));
 	i = 0;
 	while (i < 256)
 	{
 		j = 0;
-		while (j < 17)
+		while (ft_memcmp(&(g_op_tab[j]), &end, sizeof(t_op)) != NO_DIFF)
 		{
 			if (g_op_tab[j].opcode == i)
+			{
 				ft_memmove(&(mem->op_tab[i].data), &(g_op_tab[j]),
 						sizeof(t_op));
+				mem->op_tab[i].exist = TRUE;
+			}
 			j++;
 		}
 		i++;

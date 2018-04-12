@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/26 14:52:20 by enanrock          #+#    #+#             */
-/*   Updated: 2018/03/15 09:53:45 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/12 23:04:46 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ static void		initialize(t_local_memory *content, int i, t_mem *mem)
 	j = 0;
 	while (j < REG_SIZE)
 	{
-		content->registers[0][j] = mem->champ[i].id[j];
-		content->program_counter[j] = ((i * (MEM_SIZE / mem->number_champ))
+		content->registers[1][j] = mem->champ[i].id[j];
+		content->registers[0][j] = ((i * (MEM_SIZE / mem->number_champ))
 				/ ft_a_power_b(0x100, REG_SIZE - 1 - j)) % 0x100;
 		j++;
 	}
 	content->carry = 1;
 	content->opcode =
-		mem->memory_space[convert_pc_to_uint(content->program_counter)];
+		mem->memory_space[convert_pc_to_uint(content->registers[0]) % MEM_SIZE];
 	content->cycle_countdown =
 		mem->op_tab[content->opcode].data.cycle_duration;
 }
@@ -50,6 +50,8 @@ static int		create_new_process(int i, t_mem *mem)
 		ft_lstdelone(&new_process, ft_simple_del);
 		return (ERROR);
 	}
+	((t_local_memory *)new_process->content)->program_counter =
+		((t_local_memory *)new_process->content)->registers[0];
 	ft_lstadd(&(mem->process), new_process);
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2018/03/29 00:22:21 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/12 20:54:09 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,10 @@ typedef	struct		s_op
 
 typedef	struct		s_op_plus
 {
-	t_op			data;
-	int				(*action)(void *, void *);
+	int				exist;
+	struct s_op		data;
+	void			(*action)(void *, void *,
+			unsigned int arg[MAX_ARGS_NUMBER][5]);
 }					t_op_plus;
 
 #endif

@@ -5,17 +5,17 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/03 10:16:52 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/04 15:48:06 by enanrock         ###   ########.fr       */
+/*   Created: 2018/03/25 06:47:53 by enanrock          #+#    #+#             */
+/*   Updated: 2018/04/12 20:55:07 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SUB_H
 # define SUB_H
 
+# include "libft.h"
 # include "mem.h"
-# include "convert_pc_to_uint.h"
 
-int		sub(void *read_head, void *mem);
+void	sub(void *read_head, void *mem, unsigned int arg[MAX_ARGS_NUMBER][5]);
 
 #endif

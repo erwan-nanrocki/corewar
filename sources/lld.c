@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ld.c                                               :+:      :+:    :+:   */
+/*   lld.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/29 03:26:42 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/12 20:59:17 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/12 22:51:24 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ld.h"
+#include "lld.h"
 
-void	ld(void *p1, void *p2, unsigned int arg[MAX_ARGS_NUMBER][5])
+void	lld(void *p1, void *p2, unsigned int arg[MAX_ARGS_NUMBER][5])
 {
 	t_local_memory	*read_head;
 	t_mem			*mem;
@@ -24,7 +24,7 @@ void	ld(void *p1, void *p2, unsigned int arg[MAX_ARGS_NUMBER][5])
 	while (i < DIR_SIZE)
 	{
 		read_head->registers[arg[1][0]][i] =
-			(arg[0][1] / ft_a_power_b(0x100, REG_SIZE - 1 - i)) % 0x100;
+			(arg[0][3] / ft_a_power_b(0x100, REG_SIZE - 1 - i)) % 0x100;
 		i++;
 	}
 	read_head->carry = convert_pc_to_uint(read_head->registers[arg[1][0]]);

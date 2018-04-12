@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 11:20:35 by enanrock          #+#    #+#             */
-/*   Updated: 2018/03/09 13:39:41 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/12 23:09:28 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ int				complete_memory_space(t_mem *mem, int fd, unsigned int i)
 		return (ft_putstr_error_cant_t_read(mem, i));
 	if (length > CHAMP_MAX_SIZE)
 		return (ft_putstr_error_too_fat(mem, i));
-	ft_memmove(&(mem->memory_space[i * MEM_SIZE / mem->number_champ]), buf,
-			CHAMP_MAX_SIZE);
+	ft_memmove(&(mem->memory_space[MEM_SIZE * i / mem->number_champ]),
+			buf, CHAMP_MAX_SIZE);
 	return (SUCCESS);
 }
 
