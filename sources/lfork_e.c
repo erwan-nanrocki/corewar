@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/24 01:23:44 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/12 23:14:01 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/14 07:36:42 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void			lfork_e(void *p1, void *p2,
 	t_local_memory	*read_head;
 	t_mem			*mem;
 	t_list			*new_process;
+	unsigned int	pc;
 
 	read_head = p1;
 	mem = p2;
@@ -47,7 +48,8 @@ void			lfork_e(void *p1, void *p2,
 		ft_lstdelone(&new_process, ft_simple_del);
 	else
 	{
-		set_pc(mem, new_process->content, arg[0][3]);
+		pc = convert_pc_to_uint(read_head->program_counter);
+		set_pc(mem, new_process->content, pc + arg[0][3]);
 		ft_lstadd(&(mem->process), new_process);
 	}
 }

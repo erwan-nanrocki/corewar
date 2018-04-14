@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 15:18:18 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/14 06:17:25 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/14 07:08:00 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ static void		dump(t_mem *mem)
 			if (i < 0x10)
 				ft_putchar('0');
 			if (i < 0x100)
+				ft_putchar('0');
+			if (i < 0x1000)
 				ft_putchar('0');
 			ft_puthex(i);
 			ft_putstr(" : ");
