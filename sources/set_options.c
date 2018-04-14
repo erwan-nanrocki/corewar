@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 06:11:39 by enanrock          #+#    #+#             */
-/*   Updated: 2018/03/15 09:26:52 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/14 06:22:31 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ int				next_set_options(char **argv, int *i, int argc, t_mem *mem)
 	else if ((ft_strequ(argv[*i], "--leaks") == TRUE) ||
 			(ft_strequ(argv[*i], "-l") == TRUE))
 		mem->option_leaks = TRUE;
+	else if ((ft_strequ(argv[*i], "--process") == TRUE) ||
+			(ft_strequ(argv[*i], "-p") == TRUE))
+		mem->option_process = TRUE;
 	else
 	{
 		ft_putstr_fd("\033[31m""ERROR""\033[m"" : the option \"", 2);

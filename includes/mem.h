@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 17:27:46 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/10 17:26:27 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/14 06:40:41 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef	struct			s_local_memory
 	int					carry;
 	unsigned char		opcode;
 	unsigned int		cycle_countdown;
+	unsigned int		last_live;
 }						t_local_memory;
 
 typedef	struct			s_champ
@@ -62,13 +63,17 @@ typedef	struct			s_mem
 	unsigned int		number_champ;
 	struct s_champ		champ[MAX_PLAYERS];
 	unsigned int		current_cycle_to_die;
+	unsigned int		last_deadline_to_die;
 	unsigned int		deadline_to_die;
 	unsigned int		current_nbr_live;
+	unsigned int		current_checks;
 	unsigned int		cycles;
 	int					option_aff;
 	int					option_dump;
 	unsigned int		value_dump;
 	int					option_leaks;
+	int					option_process;
+	int					is_end;
 	struct s_op_plus	op_tab[256];
 }						t_mem;
 
