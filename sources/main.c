@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 15:18:18 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/14 07:08:00 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/15 21:13:06 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,51 +66,6 @@ static void		terminate(t_mem *mem)
 		ft_putendl("\033[31m""leaks lest");
 		read(1, NULL, 1);
 	}
-}
-
-static void		dump(t_mem *mem)
-{
-	unsigned int	i;
-	int				size;
-	t_list			*process;
-
-	size = 64;
-	i = 0;
-	while (i < MEM_SIZE)
-	{
-		if ((i < MEM_SIZE) && (i % size) == 0)
-		{
-			ft_putstr("\n0x");
-			if (i < 0x10)
-				ft_putchar('0');
-			if (i < 0x100)
-				ft_putchar('0');
-			if (i < 0x1000)
-				ft_putchar('0');
-			ft_puthex(i);
-			ft_putstr(" : ");
-		}
-		process = mem->process;
-		while ((process != NULL) && (mem->option_process == TRUE))
-		{
-			if (convert_pc_to_uint(((t_local_memory *)
-							(process->content))->program_counter) == i)
-				ft_putstr("\033[7m");
-			process = process->next;
-		}
-		if (mem->memory_space[i % MEM_SIZE] < 16)
-			ft_putstr("0");
-		ft_puthex(mem->memory_space[i % MEM_SIZE]);
-		if (mem->option_process == TRUE)
-			ft_putstr("\033[m");
-		ft_putchar(' ');
-		i++;
-	}
-	ft_putchar('\n');
-	if (mem->option_dump == DUMP_SIMPLE)
-		mem->is_end = TRUE;
-	else
-		read(1, NULL, 1);
 }
 
 int				main(int argc, char **argv)

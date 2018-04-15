@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   test_argument_coding_bytes.h                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/01 17:25:19 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/15 21:10:23 by enanrock         ###   ########.fr       */
+/*   Created: 2018/04/15 21:40:05 by enanrock          #+#    #+#             */
+/*   Updated: 2018/04/15 21:46:12 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#ifndef TEST_ARGUMENT_CODING_BYTES_H
+# define TEST_ARGUMENT_CODING_BYTES_H
 
-# include <fcntl.h>
-
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
-
-# include "libft.h"
 # include "mem.h"
-# include "help_corewar.h"
-# include "set_options.h"
-# include "set_champ.h"
-# include "set_process.h"
-# include "open_files_and_complete_memory_space.h"
-# include "cycle_plus_plus.h"
-# include "set_op_tab.h"
-# include "dump.h"
+
+typedef	struct		s_var
+{
+	unsigned int	arg[MAX_ARGS_NUMBER][5];
+	unsigned int	pc;
+	unsigned int	lag;
+	int				is_error_registers;
+}					t_var;
+
+int					test_argument_coding_bytes(t_local_memory *read_head,
+		t_mem *mem, t_var *var, unsigned int i);
 
 #endif

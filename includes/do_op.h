@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 14:06:55 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/12 20:53:52 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/15 21:45:04 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,8 @@
 
 # include "mem.h"
 # include "convert_pc_to_uint.h"
+# include "test_argument_coding_bytes.h"
 
-typedef	struct		s_var
-{
-	unsigned int	arg[MAX_ARGS_NUMBER][5];
-	unsigned int	pc;
-	unsigned int	lag;
-	int				is_error_registers;
-}					t_var;
-
-int					do_op(t_local_memory *read_head, t_mem *mem);
+int		do_op(t_local_memory *read_head, t_mem *mem);
 
 #endif

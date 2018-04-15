@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 14:03:09 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/12 23:33:43 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/15 21:41:50 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,17 +90,7 @@ static int				get_arguments(t_local_memory *read_head, t_mem *mem,
 	i = 0;
 	while (i < MAX_ARGS_NUMBER)
 	{
-		if (((mem->op_tab[read_head->opcode].data.type_of_parameters[i] & T_REG) == 0)
-				&& (((mem->memory_space[(var->pc + 1) % MEM_SIZE] >>
-							(2 * (MAX_ARGS_NUMBER - 1 - i))) % 4) == REG_CODE))
-			return (FAIL);
-		if (((mem->op_tab[read_head->opcode].data.type_of_parameters[i] & T_DIR) == 0)
-				&& (((mem->memory_space[(var->pc + 1) % MEM_SIZE] >>
-							(2 * (MAX_ARGS_NUMBER - 1 - i))) % 4) == DIR_CODE))
-			return (FAIL);
-		if (((mem->op_tab[read_head->opcode].data.type_of_parameters[i] & T_IND) == 0)
-				&& (((mem->memory_space[(var->pc + 1) % MEM_SIZE] >>
-							(2 * (MAX_ARGS_NUMBER - 1 - i))) % 4) == IND_CODE))
+		if (test_argument_coding_bytes(read_head, mem, var, i) == FAIL)
 			return (FAIL);
 		if (((mem->memory_space[(var->pc + 1) % MEM_SIZE] >>
 						(2 * (MAX_ARGS_NUMBER - 1 - i))) % 4) == REG_CODE)
