@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/24 01:23:44 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/15 16:11:25 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/15 20:41:17 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ void			fork_e(void *p1, void *p2, unsigned int arg[MAX_ARGS_NUMBER][5])
 	new_process = ft_lstnew(read_head, sizeof(t_local_memory));
 	if (new_process == NULL)
 	{
-		ft_putstr_df("\033[33m""Warning""\033[m", 2);
-		ft_putendl_df(" : ft_lstnew fail in fork (the first one)", 2);
+		ft_putstr_fd("\033[33m""Warning""\033[m", 2);
+		ft_putendl_fd(" : ft_lstnew fail in fork (the first one)", 2);
 	}
 	else if (new_process->content == NULL)
 	{
 		ft_lstdelone(&new_process, ft_simple_del);
-		ft_putstr_df("\033[33m""Warning""\033[m", 2);
-		ft_putendl_df(" : ft_lstnew fail in fork (the second one)", 2);
+		ft_putstr_fd("\033[33m""Warning""\033[m", 2);
+		ft_putendl_fd(" : ft_lstnew fail in fork (the second one)", 2);
 	}
 	else
 	{
