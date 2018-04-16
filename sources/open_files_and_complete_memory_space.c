@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 11:20:35 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/15 21:02:14 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/16 07:00:43 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int		ft_putstr_error_header(int version)
 		ft_putendl_fd("header is wrong (the name one)", 2);
 	if (version == 2)
 	{
-		ft_putstr_fd(" the magic number is not 0x", 2);
+		ft_putstr_fd(" the magic number is not equal to 0x", 2);
 		ft_puthex_fd(COREWAR_EXEC_MAGIC, 2);
 		ft_putchar_fd('\n', 2);
 	}
@@ -47,7 +47,7 @@ static int		ft_putstr_error_header(int version)
 int				complete_memory_space(t_mem *mem, int fd, unsigned int i,
 		void *destination_of_champ_code)
 {
-	unsigned char	buf[BUF_SIZE];
+	unsigned char	buf[CHAMP_MAX_SIZE + PROG_NAME_LENGTH + COMMENT_LENGTH + 9];
 	ssize_t			length;
 
 	ft_bzero(buf, (CHAMP_MAX_SIZE + 1) * sizeof(unsigned char));

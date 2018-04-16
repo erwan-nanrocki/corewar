@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 17:27:46 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/14 06:40:41 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/16 07:01:09 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@
 # define NO_DIFF      0
 
 # define NOT_REG      0
-
-# define BUF_SIZE   (CHAMP_MAX_SIZE + 4 + PROG_NAME_LENGTH + COMMENT_LENGTH+ 4)
 
 typedef	struct			s_local_memory
 {
