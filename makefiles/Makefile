@@ -50,7 +50,6 @@ $(NAME): ../$(NAME)
 	@echo "\033[1;36m""flags i use are ""\033[0;36m""$(GCC_FLAGS)""\033[m"
 	@echo "\033[1;36m""and ""\033[0;36m""$(LIB_FLAGS)""\033[1;36m"" too, ""\c"
 	@echo "but only when i link $@""\033[m"
-	@cp $@ ../../$@
 
 $(DEP_DIR)%.d: $(SRC_DIR)%.c
 	@mkdir -p $(DEP_DIR) 2> /tmp/a.del
