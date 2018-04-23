@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 08:25:19 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/12 20:59:04 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/16 22:29:20 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ static void		st_rr(t_local_memory *read_head,
 	i = 0;
 	while (i < REG_SIZE)
 	{
-		read_head->registers[arg[1][0]][i] =
-			read_head->registers[arg[0][0]][i];
+		read_head->registers[arg[1][0]][i] = read_head->registers[arg[0][0]][i];
 		i++;
 	}
 }

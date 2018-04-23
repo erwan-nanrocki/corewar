@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 14:03:09 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/15 21:41:50 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/18 05:00:42 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,20 @@
 static unsigned int		get_register(t_local_memory *read_head, t_mem *mem,
 		t_var *var, unsigned int i)
 {
-	if ((mem->memory_space[(var->pc + var->lag) % MEM_SIZE] == 0) ||
-			(mem->memory_space[(var->pc + var->lag) % MEM_SIZE] > REG_SIZE))
+	if ((mem->memory_space[(var->pc + var->lag) % MEM_SIZE] == 0)
+			|| (mem->memory_space[(var->pc + var->lag) % MEM_SIZE]
+				> REG_NUMBER))
+	{
 		var->is_error_registers = TRUE;
-	var->arg[i][0] = mem->memory_space[(var->pc + var->lag) % MEM_SIZE];
-	var->arg[i][1] = convert_pc_to_uint(read_head->registers[var->arg[i][0]]);
-	var->arg[i][3] = var->arg[i][1];
+		var->arg[i][0] = mem->memory_space[(var->pc + var->lag) % MEM_SIZE];
+	}
+	else
+	{
+		var->arg[i][0] = mem->memory_space[(var->pc + var->lag) % MEM_SIZE];
+		var->arg[i][1] =
+			convert_pc_to_uint(read_head->registers[var->arg[i][0]]);
+		var->arg[i][3] = var->arg[i][1];
+	}
 	return (1);
 }
 
@@ -33,8 +41,8 @@ static unsigned int		get_indirect(t_mem *mem, t_var *var, unsigned int i)
 	t = 0;
 	j = 0;
 	while (j < IND_SIZE)
-		t = (t * 0x100) +
-			mem->memory_space[(var->pc + var->lag + (j++)) % MEM_SIZE];
+		t = (t * 0x100)
+			+ mem->memory_space[(var->pc + var->lag + (j++)) % MEM_SIZE];
 	if (t >= (0x80 * ft_a_power_b(0x100, IND_SIZE - 1)))
 		t -= ft_a_power_b(0x100, IND_SIZE);
 	var->arg[i][1] = 0;
@@ -44,10 +52,10 @@ static unsigned int		get_indirect(t_mem *mem, t_var *var, unsigned int i)
 	j = 0;
 	while (j < DIR_SIZE)
 	{
-		var->arg[i][1] += ft_a_power_b(0x100, (REG_SIZE - 1) - j) *
-			mem->memory_space[(var->pc + (t % IDX_MOD) + j) % MEM_SIZE];
-		var->arg[i][3] += ft_a_power_b(0x100, (REG_SIZE - 1) - j) *
-			mem->memory_space[(var->pc + t + j) % MEM_SIZE];
+		var->arg[i][1] += ft_a_power_b(0x100, (REG_SIZE - 1) - j)
+			* mem->memory_space[(var->pc + (t % IDX_MOD) + j) % MEM_SIZE];
+		var->arg[i][3] += ft_a_power_b(0x100, (REG_SIZE - 1) - j)
+			* mem->memory_space[(var->pc + t + j) % MEM_SIZE];
 		j++;
 	}
 	return (IND_SIZE);
@@ -66,8 +74,8 @@ static unsigned int		get_direct(t_local_memory *read_head, t_mem *mem,
 		while (j < DIR_SIZE)
 		{
 			var->arg[i][1] +=
-				mem->memory_space[(var->pc + var->lag + j) % MEM_SIZE] *
-				ft_a_power_b(0x100, (REG_SIZE - 1) - j);
+				mem->memory_space[(var->pc + var->lag + j) % MEM_SIZE]
+				* ft_a_power_b(0x100, (REG_SIZE - 1) - j);
 			j++;
 		}
 		var->arg[i][3] = var->arg[i][1];
@@ -92,14 +100,14 @@ static int				get_arguments(t_local_memory *read_head, t_mem *mem,
 	{
 		if (test_argument_coding_bytes(read_head, mem, var, i) == FAIL)
 			return (FAIL);
-		if (((mem->memory_space[(var->pc + 1) % MEM_SIZE] >>
-						(2 * (MAX_ARGS_NUMBER - 1 - i))) % 4) == REG_CODE)
+		if (((mem->memory_space[(var->pc + 1) % MEM_SIZE]
+						>> (2 * (MAX_ARGS_NUMBER - 1 - i))) % 4) == REG_CODE)
 			var->lag += get_register(read_head, mem, var, i);
-		if (((mem->memory_space[(var->pc + 1) % MEM_SIZE] >>
-						(2 * (MAX_ARGS_NUMBER - 1 - i))) % 4) == DIR_CODE)
+		if (((mem->memory_space[(var->pc + 1) % MEM_SIZE]
+						>> (2 * (MAX_ARGS_NUMBER - 1 - i))) % 4) == DIR_CODE)
 			var->lag += get_direct(read_head, mem, var, i);
-		if (((mem->memory_space[(var->pc + 1) % MEM_SIZE] >>
-						(2 * (MAX_ARGS_NUMBER - 1 - i))) % 4) == IND_CODE)
+		if (((mem->memory_space[(var->pc + 1) % MEM_SIZE]
+						>> (2 * (MAX_ARGS_NUMBER - 1 - i))) % 4) == IND_CODE)
 			var->lag += get_indirect(mem, var, i);
 		i++;
 	}
@@ -110,6 +118,7 @@ int						do_op(t_local_memory *read_head, t_mem *mem)
 {
 	t_var	var;
 
+	ft_bzero(&var, sizeof(t_var));
 	if (mem->op_tab[read_head->opcode].exist == FALSE)
 		return (1);
 	var.pc = convert_pc_to_uint(read_head->program_counter);

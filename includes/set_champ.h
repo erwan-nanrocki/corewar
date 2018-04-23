@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 07:37:45 by enanrock          #+#    #+#             */
-/*   Updated: 2018/03/03 23:54:03 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/18 06:59:05 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SET_CHAMP_H
 
 # include "mem.h"
+# include "libft.h"
 
 int		set_champ(char *file, t_mem *mem);
 

@@ -6,37 +6,30 @@
 #    By: enanrock <marvin42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/02 11:41:31 by enanrock          #+#    #+#              #
-#    Updated: 2018/04/16 06:38:06 by enanrock         ###   ########.fr        #
+#    Updated: 2018/04/20 01:30:37 by mbenjell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME      := corewar
-NAME_001  := $(NAME)
-NAME_002  := asm
-NAME_ALL  := $(NAME_001)
+NAME		:= corewar
+NAME_001	:= $(NAME)
+NAME_ALL	:= $(NAME_001)
 
-LIBFT_DIR := ./libft/
-SRC_DIR   := ./sources/
-OBJ_DIR   := ./objects/
-HDR_DIR   := ./includes/
+LIBFT_DIR	:= ./libft/
+SRC_DIR		:= ./sources/
+OBJ_DIR		:= ./objects/
+HDR_DIR		:= ./includes/
 
-LIB       := $(addsuffix Makefile, $(LIBFT_DIR))
+LIB			:= $(addsuffix Makefile, $(LIBFT_DIR))
 
-.PHONY: all clean fclean re leaks reset norme where_is_malloc tuto tuto_corewar
+.PHONY:	all clean fclean re always_do_it leaks norme where_is_malloc           \
+		tuto tuto_corewar
+all: $(LIB) $(NAME_ALL)
 
-all: $(LIB) author .gitignore .gitmodules
-	@make $@ -C Makefiles -f Makefile_$(NAME_001)
-#	@make $@ -C Makefiles -f Makefile_$(NAME_002)
-
-$(NAME_001): $(LIB)
-	@make ../$@ -C Makefiles -f Makefile_$(NAME_001)
-
-$(NAME_002): $(LIB)
-	@make ../$@ -C Makefiles -f Makefile_$(NAME_001)
+$(NAME_001): $(LIB) always_do_it
+	@make $@ -C Makefiles
 
 clean: $(LIB)
-	@make $@ -C Makefiles -f Makefile_$(NAME_001)
-#	@make $@ -C Makefiles -f Makefile_$(NAME_002)
+	@make $@ -C Makefiles
 ifneq ("$(OBJ_DIR)", "./")
 	@echo "\033[1;31m""\c"
 	@rm -fdv $(OBJ_DIR)
@@ -44,8 +37,7 @@ ifneq ("$(OBJ_DIR)", "./")
 endif
 
 fclean: $(LIB)
-	@make $@ -C Makefiles -f Makefile_$(NAME_001)
-#	@make $@ -C Makefiles -f Makefile_$(NAME_002)
+	@make $@ -C Makefiles
 ifneq ("$(OBJ_DIR)", "./")
 	@echo "\033[1;31m""\c"
 	@rm -fdv $(OBJ_DIR)
@@ -69,36 +61,9 @@ author:
 	echo "mbriffau" >> author
 	@echo "\033[m"
 
-.gitmodules:
-	@echo "\033[1;37m""\c"
-	echo '[submodule "libft"]'                            > $@
-	echo '	path = libft'                                >> $@
-	echo '	url = git://github.com/erwan-nanrocki/libft' >> $@
-	@echo "\033[m"
-
-.gitignore:
-	@echo "\033[1;37m""\c"
-	echo "$(OBJ_DIR)"   > $@
-	echo "$(NAME_001)" >> $@
-	echo "$(NAME_002)" >> $@
-	echo "*.swp"       >> $@
-	echo "*.o"         >> $@
-	echo "*.a"         >> $@
-	echo "*.cor"       >> $@
-	echo "*_DONE"      >> $@
-	@echo "\033[m"
-
 leaks:
 	clear
 	leaks $(NAME_001)
-#	leaks $(NAME_002)
-
-reset:
-	rm -Rf author
-	rm -Rf .gitmodules
-	rm -Rf .gitignore
-	rm -Rf $(LIBFT_DIR)
-	mkdir $(LIBFT_DIR)
 
 norme: $(LIB)
 	@make norme -C $(LIBFT_DIR)

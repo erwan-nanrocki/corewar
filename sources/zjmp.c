@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/01 13:35:20 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/12 20:58:58 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/17 05:13:56 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	zjmp(void *p1, void *p2, unsigned int arg[MAX_ARGS_NUMBER][5])
 		while (i > 0)
 		{
 			read_head->program_counter[DIR_SIZE - i] =
-				((pc + arg[0][1] - 1 - IND_SIZE) / ft_a_power_b(0x100, i - 1)) %
-				0x100;
+				((pc + arg[0][1] - 1 - IND_SIZE) / ft_a_power_b(0x100, i - 1))
+				% 0x100;
 			i--;
 		}
 	}

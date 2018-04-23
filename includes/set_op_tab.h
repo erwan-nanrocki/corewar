@@ -6,16 +6,14 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 06:42:07 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/12 23:17:35 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/18 06:59:21 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SET_OP_TAB_H
 # define SET_OP_TAB_H
 
-# include "op.h"
 # include "mem.h"
-
 # include "libft.h"
 
 # include "live.h"

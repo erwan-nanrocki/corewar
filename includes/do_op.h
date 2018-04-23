@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 14:06:55 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/15 21:45:04 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/18 06:51:22 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define DO_OP_H
 
 # include "mem.h"
+# include "libft.h"
 # include "convert_pc_to_uint.h"
 # include "test_argument_coding_bytes.h"
 

@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/24 01:23:44 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/15 20:41:25 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/17 01:46:33 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ static void		set_pc(t_mem *mem, t_local_memory *new_content,
 			(new_pc / ft_a_power_b(0x100, DIR_SIZE - 1 - i)) % 0x100;
 		i++;
 	}
-	new_content->opcode = mem->memory_space
-		[convert_pc_to_uint(new_content->program_counter) % MEM_SIZE];
+	new_content->opcode = mem->memory_space[new_pc % MEM_SIZE];
 	new_content->cycle_countdown =
 		mem->op_tab[new_content->opcode].data.cycle_duration;
 }

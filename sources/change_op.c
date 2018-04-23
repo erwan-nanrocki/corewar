@@ -6,14 +6,14 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 13:57:04 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/12 23:05:41 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/18 06:37:23 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "change_op.h"
 
 void			change_op(t_local_memory *read_head,
-												t_mem *mem, unsigned int skip)
+		t_mem *mem, unsigned int skip)
 {
 	unsigned int	i;
 	unsigned int	k;
@@ -21,14 +21,15 @@ void			change_op(t_local_memory *read_head,
 	k = 0;
 	while (k < skip)
 	{
-		i = REG_SIZE;
 		if (convert_pc_to_uint(read_head->program_counter) + 1 == MEM_SIZE)
 		{
+			i = REG_SIZE;
 			while (i > 0)
 				read_head->program_counter[--i] = 0x00;
 		}
 		else
 		{
+			i = REG_SIZE;
 			while (i > 0)
 				if (read_head->program_counter[--i]++ != 0xff)
 					i = 0;

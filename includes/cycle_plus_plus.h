@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 11:18:56 by enanrock          #+#    #+#             */
-/*   Updated: 2018/03/12 22:36:41 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/18 06:49:56 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CYCLE_PLUS_PLUS_H
 
 # include "mem.h"
+# include "libft.h"
 # include "change_op.h"
 # include "do_op.h"
 

@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/29 03:26:42 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/12 23:05:01 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/17 04:31:19 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,4 @@ void	ldi(void *p1, void *p2, unsigned int arg[MAX_ARGS_NUMBER][5])
 			mem->memory_space[(pc + arg[0][1] + arg[1][1] + i) % MEM_SIZE];
 		i++;
 	}
-	read_head->carry = convert_pc_to_uint(read_head->registers[arg[1][0]]);
 }

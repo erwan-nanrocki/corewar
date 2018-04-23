@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/03 10:43:45 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/12 20:59:07 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/17 04:32:14 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,5 @@ void	and(void *p1, void *p2, unsigned int arg[MAX_ARGS_NUMBER][5])
 			(result / ft_a_power_b(0x100, REG_SIZE - 1 - i)) % 0x100;
 		i++;
 	}
+	read_head->carry = convert_pc_to_uint(read_head->registers[arg[1][0]]);
 }

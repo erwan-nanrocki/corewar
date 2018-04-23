@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 06:11:39 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/14 06:22:31 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/16 22:50:20 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,17 @@ static int		complete_new_id(char *str_cp, unsigned char new_id[REG_SIZE],
 		int i, int j)
 {
 	if (ft_isdigit(str_cp[j]) == TRUE)
+	{
 		new_id[i] = 0x10 * new_id[i] + (str_cp[j] - '0');
-	else if ((ft_isalpha(str_cp[j]) == TRUE)
-			&& (str_cp[j] <= 'f'))
+	}
+	else if ((ft_isalpha(str_cp[j]) == TRUE) && (str_cp[j] <= 'f'))
+	{
 		new_id[i] = 0x10 * new_id[i] + (10 + str_cp[j] - 'a');
+	}
 	else
+	{
 		return (ERROR);
+	}
 	return (SUCCESS);
 }
 
@@ -62,18 +67,19 @@ static int		ft_putstr_error_number(char *str)
 
 int				next_set_options(char **argv, int *i, int argc, t_mem *mem)
 {
-	if ((*i + 2 < argc) && ((ft_strequ(argv[*i], "--number") == TRUE)
+	if ((*i + 2 < argc)
+			&& ((ft_strequ(argv[*i], "--number") == TRUE)
 				|| (ft_strequ(argv[*i], "-n") == TRUE)))
 	{
 		mem->champ[mem->number_champ].id_perso = TRUE;
 		if (a_to_hex(argv[++(*i)], mem->champ[mem->number_champ].id) == ERROR)
 			return (ft_putstr_error_number(argv[*i]));
 	}
-	else if ((ft_strequ(argv[*i], "--leaks") == TRUE) ||
-			(ft_strequ(argv[*i], "-l") == TRUE))
+	else if ((ft_strequ(argv[*i], "--leaks") == TRUE)
+			|| (ft_strequ(argv[*i], "-l") == TRUE))
 		mem->option_leaks = TRUE;
-	else if ((ft_strequ(argv[*i], "--process") == TRUE) ||
-			(ft_strequ(argv[*i], "-p") == TRUE))
+	else if ((ft_strequ(argv[*i], "--process") == TRUE)
+			|| (ft_strequ(argv[*i], "-p") == TRUE))
 		mem->option_process = TRUE;
 	else
 	{
@@ -87,16 +93,18 @@ int				next_set_options(char **argv, int *i, int argc, t_mem *mem)
 
 int				set_options(char **argv, int *i, int argc, t_mem *mem)
 {
-	if ((ft_strequ(argv[*i], "--aff") == TRUE) ||
-			(ft_strequ(argv[*i], "-a") == TRUE))
+	if ((ft_strequ(argv[*i], "--aff") == TRUE)
+			|| (ft_strequ(argv[*i], "-a") == TRUE))
 		mem->option_aff = TRUE;
-	else if ((*i + 1 < argc) && ((ft_strequ(argv[*i], "--dump") == TRUE)
+	else if ((*i + 1 < argc)
+			&& ((ft_strequ(argv[*i], "--dump") == TRUE)
 				|| (ft_strequ(argv[*i], "-d") == TRUE)))
 	{
 		mem->option_dump = DUMP_SIMPLE;
 		mem->value_dump = ft_atoui(argv[++(*i)]);
 	}
-	else if ((*i + 1 < argc) && ((ft_strequ(argv[*i], "--multi_dump") == TRUE)
+	else if ((*i + 1 < argc)
+			&& ((ft_strequ(argv[*i], "--multi_dump") == TRUE)
 				|| (ft_strequ(argv[*i], "-m") == TRUE)))
 	{
 		mem->option_dump = DUMP_MULTI;

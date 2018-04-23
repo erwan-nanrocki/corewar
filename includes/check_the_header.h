@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   change_op.h                                        :+:      :+:    :+:   */
+/*   check_the_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/11 14:01:36 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/18 06:49:24 by enanrock         ###   ########.fr       */
+/*   Created: 2018/04/19 17:57:49 by enanrock          #+#    #+#             */
+/*   Updated: 2018/04/19 18:46:56 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHANGE_OP_H
-# define CHANGE_OP_H
+#ifndef CHECK_THE_HEADER_H
+# define CHECK_THE_HEADER_H
+
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <unistd.h>
 
 # include "mem.h"
-# include "convert_pc_to_uint.h"
+# include "libft.h"
 
-void	change_op(t_local_memory *read_head, t_mem *mem, unsigned int skip);
+int		check_the_header(t_mem *mem, int fd, unsigned int i,
+		ssize_t *length_code);
 
 #endif

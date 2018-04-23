@@ -6,7 +6,7 @@
 /*   By: enanrock <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/03 10:43:45 by enanrock          #+#    #+#             */
-/*   Updated: 2018/04/12 20:59:29 by enanrock         ###   ########.fr       */
+/*   Updated: 2018/04/17 04:02:35 by enanrock         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	sub(void *p1, void *p2, unsigned int arg[MAX_ARGS_NUMBER][5])
 	read_head = p1;
 	mem = p2;
 	result = arg[0][1] - arg[1][1];
+	read_head->carry = result;
 	i = 0;
 	while (i < REG_SIZE)
 	{
